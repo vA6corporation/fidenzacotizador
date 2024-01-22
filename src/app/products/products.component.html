@@ -1,0 +1,19 @@
+<div class="p-4 mb-3 card size-card">
+    <img src='{{insurance.imgPath}}' class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="text-center fs-3 card-title">{{insurance.name}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center">Coberturas de {{insurance.name}}</li>
+        <li class="list-group-item text-center">Cobertura:
+            Hasta el {{ insurance.coverages }}%</li>
+        <li class="list-group-item text-center">Deducible:
+            Hasta el {{ insurance.deductuble }}%</li>
+        <li class="list-group-item text-center">
+            <h1> {{ insurance.charge == 0 ? 'Consultar' : 'S/ ' + insurance.charge.toFixed(2) }}</h1> por mes
+        </li>
+    </ul>
+    <div class="card-body text-center">
+        <button type="button" (click)="toRedirect" class="btn btn-info text-white btn-lg">Contratar</button>
+    </div>
+</div>

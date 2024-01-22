@@ -1,0 +1,74 @@
+<main class="m-0">
+    <div class="text-center align-items-center d-flex flex-column justify-content-center main-img">
+        <div class="mask h-100 w-100" style="background-color: rgba(0, 0, 0, 0.3)">
+            <div class="d-flex justify-content-center text-white flex-column align-items-center h-100">
+                <h1 class="mb-3 font-size fw-bolder">SCTR</h1>
+                <p class="fs-4 px-4">
+                    Seguro obligatorio para proteger a tus empleados si trabajan en
+                    actividades de riesgo.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="my-3 row g-3">
+            <div class="col-md-7 col-lg-12">
+                <h4 class="mb-3">Cotiza aqui</h4>
+            </div>
+        </div>
+        <form [formGroup]="formGroup" (submit)="onSubmit()">
+            <div class="row justify-content-between  align-items-center">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Cantidad de empleados</label>
+                    <input type="number" formControlName="quantityWorkers"
+                        placeholder="Ingrese la cantidad de empleados" class="form-control form-control-lg">
+                </div>
+                <div class="col-6 mb-3">
+                    <label class="form-label">Ingresos</label>
+                    <input type="number" formControlName="incomes" placeholder="Ingrese la cantidad de ingresos totales"
+                        class="form-control form-control-lg">
+                </div>
+            </div>
+
+            <label class="form-label" for="">Sector</label>
+            <select formControlName="optionPrincipal" class="form-select form-select-lg mb-3 w-100"
+                aria-label="Large select example">
+                <option disabled selected value="">Seleccione tipo de sector</option>
+                @for (sector of sectors; track $index) {
+                <option [value]="sector.id">{{ sector.sector }}</option>
+                }
+            </select>
+
+            @if (formGroup.value.optionPrincipal == '01') {
+            <label class="form-label" for="">Tipo de trabajo</label>
+            <select formControlName="optionSecundaria" class="form-select form-select-lg mb-3 w-100"
+                aria-label="Large select example">
+                <option disabled selected value="">Seleccione tipo de trabajo</option>
+                @for (subsector of sectors[0].subsectors; track $index) {
+                <option [value]="subsector.id">{{ subsector.label }}</option>
+                }
+            </select>
+            } @else if (formGroup.value.optionPrincipal == '02') {
+            <label class="form-label" for="">Tipo de trabajo</label>
+            <select formControlName="optionSecundaria" class="form-select form-select-lg mb-3 w-100"
+                aria-label="Large select example">
+                <option disabled selected value="">Seleccione tipo de trabajo</option>
+                @for (subsector of sectors[1].subsectors; track $index) {
+                <option [value]="subsector.id">{{ subsector.label }}</option>
+                }
+            </select>
+            }
+
+            <button type="submit" class="btn btn-lg btn-info text-white w-100  px-5">Calcular precios</button>
+        </form>
+
+        @if (buttonDisabled) {
+        <div class="mt-4 row justify-content-center">
+            @for (insurance of insurances; track $index) {
+            <app-products class="col-md-3 col-10 " [insurance]="insurance" />
+            }
+        </div>
+        }
+    </div>
+</main>
